@@ -358,7 +358,6 @@ class PlayState extends MusicBeatState
 		#end
 
 		GameOverSubstate.resetVariables();
-		trace("path");
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		curStage = PlayState.SONG.stage;
 		trace('stage is: ' + curStage);
@@ -417,11 +416,10 @@ class PlayState extends MusicBeatState
 		
 
 		var alternate:String = "";				 
-		if(alternateMode)
-			{
-				alternate = '-alternate';
-				trace("Alternate Mode is at:" + alternateMode);
-			}
+	    if(alternateMode)
+		{
+			alternate = '-alternate';
+		}
 			
 
 		switch (curStage)
@@ -582,7 +580,6 @@ class PlayState extends MusicBeatState
 
 				var waiter = new BGSprite('waiter', 0, 0, 0, 0, ['waiter']);
 				//waiter.frames = Paths.getSparrowAtlas('waiter');
-				trace(waiter.frames);
 				waiter.animation.addByPrefix('walking', 'waiter', 2, true);
 				waiter.setGraphicSize(Std.int(waiter.width * 1));
 				waiter.scrollFactor.set(0.55, 0.55);
@@ -637,7 +634,6 @@ class PlayState extends MusicBeatState
 
 				restauranttables2boppers = new BGSprite('restauranttables2boppers', -820, -240, 0.8, 0.8, ['restauranttables2boppers']);
 				//waiter.frames = Paths.getSparrowAtlas('waiter');
-				trace(restauranttables2boppers.frames);
 				restauranttables2boppers.animation.addByPrefix('idle', 'restauranttables2boppers idle', 1, true);
 				restauranttables2boppers.animation.addByPrefix('clap', 'restauranttables2boppers clap', 4, false);
 				restauranttables2boppers.animation.addByPrefix('double', 'restauranttables2boppers double', 12, false);
@@ -1111,7 +1107,6 @@ class PlayState extends MusicBeatState
 			{
 				cat = new BGSprite('gato', 360, 385, 1.2, 1.2, ['gato']);
 				//waiter.frames = Paths.getSparrowAtlas('waiter');
-				trace(cat.frames);
 				cat.animation.addByPrefix('start', 'start', 9, false);
 				cat.animation.addByPrefix('idle1', 'idle1', 1, true);
 				cat.animation.addByPrefix('tailwag1', 'tailwag1', 10, false);
@@ -1260,12 +1255,9 @@ class PlayState extends MusicBeatState
 		else
 			{
 				var file:String = Paths.json(songName + '/dialogue'); //Checks for json/Psych Engine dialogue
-				trace(file); //bnb tmr
-				trace(dialogueJson); //bnb tmr
 				if (OpenFlAssets.exists(file)) {
 					dialogueJson = DialogueBoxPsych.parseDialogue(file);
 				}
-				trace(dialogueJson); //bnb tmr
 			}
 		
 		
@@ -1329,9 +1321,7 @@ class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
 		// startCountdown();
-		trace("path");
 		generateSong(SONG.song);
-		trace("path");
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
@@ -1356,21 +1346,16 @@ class PlayState extends MusicBeatState
 				// SONG SPECIFIC SCRIPTS
 				#if LUA_ALLOWED
 				var filesPushed:Array<String> = [];
-				trace("path");
 				var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
-				trace("path");
 		
 				#if MODS_ALLOWED
-				trace("path");
 				foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
-				trace("path");
 				if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 					foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
 		
 				for(mod in Paths.getGlobalMods())
 					foldersToCheck.insert(0, Paths.mods(mod + '/data/' + Paths.formatToSongPath(SONG.song) + '/' ));// using push instead of insert because these should run after everything else
 				#end
-				trace("path");
 				for (folder in foldersToCheck)
 				{
 					if(FileSystem.exists(folder))
@@ -1538,16 +1523,13 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
-		trace("path");
 		var daSong:String = Paths.formatToSongPath(curSong);
 		trace(daSong);
 		if (isStoryMode && !seenCutscene)
 		{
-			trace("path");
 			switch (daSong)
 			{
 				case "monster":
-					trace("path");
 					var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					add(whiteScreen);
 					whiteScreen.scrollFactor.set();
@@ -1613,17 +1595,11 @@ class PlayState extends MusicBeatState
 				default:
 					startCountdown();
 			}
-			trace("path");
 			seenCutscene = true;
-			trace("path");
 		} else {
-			trace("path");
 			startCountdown();
-			trace("path");
 		}
-		trace("path");
 		RecalculateRating();
-		trace("path");
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
 		CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
@@ -1827,9 +1803,7 @@ class PlayState extends MusicBeatState
 		senpaiEvil.screenCenter();
 		senpaiEvil.x += 300;
 
-		trace("path");
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		trace("path");
 		if (songName == 'roses' || songName == 'thorns')
 		{
 			remove(black);
@@ -1906,7 +1880,6 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown():Void
 	{
-		trace("SAFSD");
 		if(startedCountdown) {
 			callOnLuas('onStartCountdown', []);
 			return;
@@ -1943,7 +1916,6 @@ class PlayState extends MusicBeatState
 				if(tmr.loopsLeft % 2 == 0) {
 					if(dad.danceIdle && dad.canIdle(dad))
 					{
-						trace("can DEFINTELY idle YAAAAAAAY");
 						dad.dance();
 					}
 				if(boyfriend.danceIdle && boyfriend.canIdle(boyfriend))
@@ -2158,16 +2130,12 @@ class PlayState extends MusicBeatState
 		if(isLucid) 
 			file = Paths.json(songName + '/events-lucid');
 		else file = Paths.json(songName + '/events');
-		trace(file);
-		trace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
 		#if sys
 		if (FileSystem.exists(Paths.modsJson(songName + '/events' + lucidEvent)) || FileSystem.exists(file)) {
 		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
-		trace("AA");
-			
 			var eventsData:Array<SwagSection> = Song.loadFromJson('events' + lucidEvent, songName).notes;
 			for (section in eventsData)
 			{
@@ -2181,8 +2149,7 @@ class PlayState extends MusicBeatState
 			}
 			
 		}
-	
-		trace("AA");
+
 		for (section in noteData)
 		{
 			for (songNotes in section.sectionNotes)
@@ -2254,18 +2221,13 @@ class PlayState extends MusicBeatState
 
 		// trace(unspawnNotes.length);
 		// playerCounter += 1;
-		trace("AA");
 		
 		unspawnNotes.sort(sortByShit);
-		trace("AA");
 		if(eventNotes.length > 1) { //No need to sort if there's a single one or none at all
 			eventNotes.sort(sortByTime);
 		}
-		trace("AA");
 		checkEventNote();
-		trace("AA");
 		generatedMusic = true;
-		trace("AA");
 	}
 
 	function eventPushed(event:Array<Dynamic>) {
@@ -2916,7 +2878,6 @@ class PlayState extends MusicBeatState
 						}
 					}
 				}
-				trace("AA");
 				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 				{
 					
@@ -2985,7 +2946,6 @@ class PlayState extends MusicBeatState
 								dad.animation.finish();
 								dad.sustaining = false;
 								dad.playAnim(dad.theAnimName, false, false, 5);
-								trace(dad.theAnimName);
 								//dad.playAnim(theAnimName + "Return");
 								//trace(theAnimName + "Return");			
 								//dad.theAnimName = null;
@@ -3141,7 +3101,6 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 				camZooming = false;
 				zoomTimerFinished = false;
-				trace(FlxG.camera.zoom);
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y, camFollowPos.x, camFollowPos.y, this));
 				for (tween in modchartTweens) {
 					tween.active = true;
@@ -3482,7 +3441,6 @@ class PlayState extends MusicBeatState
 				if(Math.isNaN(flashTime)) flashTime = 1;
 				//Std.parseInt(value1);
 
-				trace("minecraft");
 				var color:FlxColor = Std.parseInt(flashColor);
 				flash.color = color;
 		
@@ -3611,7 +3569,6 @@ class PlayState extends MusicBeatState
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0];
 			camFollow.y += dad.cameraPosition[1];
-			tweenCamIn();
 		} else {
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
 
@@ -3628,28 +3585,13 @@ class PlayState extends MusicBeatState
 			camFollow.x -= boyfriend.cameraPosition[0];
 			camFollow.y += boyfriend.cameraPosition[1];
 
-			trace("OMG");
 			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1) {
 				// cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
 				// 	function (twn:FlxTween) {
 				// 		cameraTwn = null;
 				// 	}
 				// });
-				trace("OMG");
 			}
-			trace("OMG");
-			
-		}
-	}
-
-	function tweenCamIn() {
-		if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1.3) {
-			// cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-			// 	function (twn:FlxTween) {
-			// 		cameraTwn = null;
-			// 	}
-			// });
-			trace("OMG");
 		}
 	}
 
@@ -3860,12 +3802,10 @@ class PlayState extends MusicBeatState
 					else
 						difficulty = '' + CoolUtil.difficultyStuff[storyDifficulty][1];
 					trace('LOADING NEXT SONG');
-					trace("OMG");
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 					
-					trace("OMG");
 					var winterHorrorlandNext = (Paths.formatToSongPath(SONG.song) == "eggnog");
-					trace("OMG");
+
 					if (winterHorrorlandNext)
 					{
 						var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
@@ -4533,7 +4473,6 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim(animToPlay, false, false, 5);
 							}
 						boyfriend.sustaining = false;
-						trace(boyfriend.theAnimName); 
 						//boyfriend.playAnim(theAnimName + "Return");
 						//trace(theAnimName + "Return");			
 						//boyfriend.theAnimName = null;
@@ -4872,7 +4811,7 @@ class PlayState extends MusicBeatState
 			}
 		
 		if(lastBeatHit >= curBeat) {
-			trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
+			//trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			return;
 		}
 
@@ -4913,7 +4852,6 @@ class PlayState extends MusicBeatState
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
-		trace(SONG.song);
 
 //THIS SHOULD BE curBEAT%1!!!! this is only cuz of the teaser, this will swithc ebtween 1 and 2 depeneding on a json with half time value
 		if(curBeat % (1 / SONG.animSpeedMultiplier) == 0) {
