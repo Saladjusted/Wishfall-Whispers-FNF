@@ -1152,7 +1152,7 @@ class PlayState extends MusicBeatState
 			gf.visible = false;
 		}
 
-		scrollDiamonds = new FlxBackdrop(Paths.image('diamondsLUCID'), 0.2, 0.2, true, true);
+		scrollDiamonds = new FlxBackdrop(Paths.image('diamondsLUCID'), XY, 0, 0);
 		scrollDiamonds.scrollFactor.set(1, 1);
 		add(scrollDiamonds);
 		scrollDiamonds.velocity.set(-100, -100);
